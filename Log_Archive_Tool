@@ -1,0 +1,18 @@
+log-archive /var/log -s "0 2 * * *"       # every day at 02:00
+log-archive /var/log -s "0 0 * * 0"       # every Sunday at midnight
+log-archive /var/log -s "0 */6 * * *"     # every 6 hours
+log-archive /var/log --remove-cron        # uninstall the job
+```
+
+---
+
+### What gets produced
+
+| Output | Description |
+|---|---|
+| `logs_archive_YYYYMMDD_HHMMSS.tar.gz` | Timestamped compressed archive |
+| `archive_activity.log` | Appended log of every run — date, source, file count, raw size, compressed size, ratio |
+
+The activity log looks like:
+```
+[2024-08-16 10:06:48]  archive=logs_archive_20240816_100648.tar.gz  source=/var/log  files=42  raw=18.23 MB  compressed=2.41 MB  ratio=86.8%
